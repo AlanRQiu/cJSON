@@ -1,0 +1,20 @@
+Date: 2026-11-18T12:54:51-08:00
+Commit: b202bb5fe03cb4393c2759da252e7219975db938
+
+afl-fuzz++5.02c
+
+Debian clang version 21.1.8 (13)
+Target: aarch64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-21/bin
+
+cmake version 4.3.4
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+Debian clang version 21.1.8 (13)
+Target: aarch64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-21/bin
+
+Linux kali-linux-2024-2 7.2.15+kali-arm64 #1 SMP PREEMPT Kali 7.2.15-1kali1 (2026-11-03) aarch64 GNU/Linux

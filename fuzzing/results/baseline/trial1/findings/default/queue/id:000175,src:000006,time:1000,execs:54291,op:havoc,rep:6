@@ -1,0 +1,15 @@
+uf{"et": {
+    "g": "on",
+    "ww": {
+    "t": "Widget", "name": "maw",
+    "width": 500,
+        "height": 500
+    },
+    "image": {
+        "src": "Images",
+        "name": "sun1",
+        "hOffset": 250,
+        "vOffset": 250,
+        "alignment": "center"
+    },
+  @ 

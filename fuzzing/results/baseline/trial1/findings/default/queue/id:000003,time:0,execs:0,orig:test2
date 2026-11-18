@@ -1,0 +1,11 @@
+bf{"menu": {
+  "id": "file",
+  "e": "File",
+  "p": {
+    "meem": [
+  {"value": "New", "onclick": "Create"},
+  {"value": "Open", "onclick": ")"},
+      {"value": "Close", "onclick": "CloseDoc()"}
+    ]
+  }
+}}

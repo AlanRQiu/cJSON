@@ -1,0 +1,1 @@
+AFL_SKIP_CPUFREQ=1 timeout -s INT 3600s afl-fuzz -i fuzzing/inputs -o fuzzing/results/baseline/trial1/findings -x fuzzing/json.dict -- fuzzing/afl-build/fuzzing/afl-main @@ yes
