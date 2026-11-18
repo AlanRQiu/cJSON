@@ -1,0 +1,19 @@
+# Build hardened AFL target
+rm -rf fuzzing/afl-hardened-build
+mkdir -p fuzzing/afl-hardened-build
+cd fuzzing/afl-hardened-build
+export AFL_USE_ASAN=1
+CC=afl-clang-fast cmake ../.. -DENABLE_FUZZING=On -DENABLE_SANITIZERS=On -DBUILD_SHARED_LIBS=Off
+cmake --build . --target afl-main -j2
+cd ../../
+
+# Compare binary hardening
+checksec --file=fuzzing/afl-build/fuzzing/afl-main
+checksec --file=fuzzing/afl-hardened-build/fuzzing/afl-main
+
+# Replay final baseline corpus against both builds
+./fuzzing/replay_corpus.sh \
+  fuzzing/results/baseline/trial1/findings/default/queue \
+  fuzzing/afl-build/fuzzing/afl-main \
+  fuzzing/afl-hardened-build/fuzzing/afl-main \
+  fuzzing/results/mitigation/replay.csv

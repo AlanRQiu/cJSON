@@ -1,0 +1,2 @@
+RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	Fortified	Fortifiable	FILE
+[33mPartial RELRO[m   [32mCanary found   [m   [32mNX enabled [m   [32mPIE enabled  [m   [32mNo RPATH [m  [32mNo RUNPATH [m  [31m10869 Symbols	[m  [32mYes[m	10		58		fuzzing/afl-build/fuzzing/afl-main

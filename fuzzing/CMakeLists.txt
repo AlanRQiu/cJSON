@@ -7,6 +7,7 @@ if (ENABLE_FUZZING)
 
     add_executable(afl-main afl.c)
     target_link_libraries(afl-main "${CJSON_LIB}")
+    target_link_options(afl-main PRIVATE "-Wl,-z,relro" "-Wl,-z,now")
 
     if (NOT ENABLE_SANITIZERS)
         message(FATAL_ERROR "Enable sanitizers with -DENABLE_SANITIZERS=On to do fuzzing.")

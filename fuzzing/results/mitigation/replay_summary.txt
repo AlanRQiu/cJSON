@@ -1,0 +1,3 @@
+Corpus cases: 604
+Different exit statuses: 0
+Timeouts: 0
