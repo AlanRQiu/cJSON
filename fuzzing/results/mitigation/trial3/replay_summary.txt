@@ -1,0 +1,5 @@
+Corpus cases: 526
+Different exit statuses: 0
+Timeouts: 0
+Non-zero exit statuses (baseline): 2
+Non-zero exit statuses (hardened): 2

@@ -1,0 +1,44 @@
+# Trial 3 mitigation (Full RELRO + BIND_NOW) and source coverage - branch trial3-mitigation
+# Host: WSL2 Ubuntu 24.04 x86_64, afl-clang-fast (clang 17.0.6), AFL++ 4.09c, CMake 3.28.3, checksec 2.6.0
+# Run from repo root. Baseline binary fuzzing/afl-build/fuzzing/afl-main was built on trial3
+# (sources identical to tag baseline e8c1bfa) with the commands in fuzzing/results/baseline/trial3/command.txt.
+
+git switch -c trial3-mitigation trial3
+
+# Source-level coverage (llvm-cov 17) of cJSON.c from the final AFL queues
+fuzzing/measure_source_coverage.sh fuzzing/results/baseline/trial3/findings/default/queue fuzzing/results/baseline/trial3/llvm-cov trial3
+fuzzing/measure_source_coverage.sh fuzzing/results/baseline/trial1/findings/default/queue fuzzing/results/baseline/trial1/llvm-cov trial1
+rm -f fuzzing/results/baseline/trial1/llvm-cov/show.txt fuzzing/results/baseline/trial1/llvm-cov/trial1.profdata
+
+# Apply mitigation (adds target_link_options(afl-main PRIVATE "-Wl,-z,relro" "-Wl,-z,now"))
+git checkout origin/d3-mitigation -- fuzzing/CMakeLists.txt fuzzing/replay_corpus.sh
+
+# Build hardened AFL target
+rm -rf fuzzing/afl-hardened-build && mkdir -p fuzzing/afl-hardened-build && cd fuzzing/afl-hardened-build
+CC=afl-clang-fast AFL_USE_ASAN=1 cmake ../.. -DENABLE_FUZZING=On -DENABLE_SANITIZERS=On -DBUILD_SHARED_LIBS=Off && AFL_USE_ASAN=1 make afl-main
+cd ../..
+
+# Compare binary hardening (ANSI colour codes stripped)
+checksec --file=fuzzing/afl-build/fuzzing/afl-main          | sed 's/\x1b\[[0-9;]*m//g' > fuzzing/results/mitigation/trial3/baseline_checksec.txt
+checksec --file=fuzzing/afl-hardened-build/fuzzing/afl-main | sed 's/\x1b\[[0-9;]*m//g' > fuzzing/results/mitigation/trial3/hardened_checksec.txt
+
+# Replay final Trial 3 queue (526 inputs) against both builds
+./fuzzing/replay_corpus.sh \
+  fuzzing/results/baseline/trial3/findings/default/queue \
+  fuzzing/afl-build/fuzzing/afl-main \
+  fuzzing/afl-hardened-build/fuzzing/afl-main \
+  fuzzing/results/mitigation/trial3/replay.csv
+
+# Summary
+M=fuzzing/results/mitigation/trial3
+{
+  echo "Corpus cases: $(($(wc -l < $M/replay.csv)-1))"
+  echo "Different exit statuses: $(awk -F, 'NR>1 && $(NF-1)!=$NF' $M/replay.csv | wc -l)"
+  echo "Timeouts: $(awk -F, 'NR>1 && ($(NF-1)==124 || $NF==124)' $M/replay.csv | wc -l)"
+  echo "Non-zero exit statuses (baseline): $(awk -F, 'NR>1 && $(NF-1)!=0' $M/replay.csv | wc -l)"
+  echo "Non-zero exit statuses (hardened): $(awk -F, 'NR>1 && $NF!=0' $M/replay.csv | wc -l)"
+} > $M/replay_summary.txt
+
+# NOTE: the 2 non-zero exits (exit 1 on both builds) are id:000052 (bytes 40 00 00 00) and id:000086
+# (bytes 00 80 7b 0a). fuzzing/afl.c returns EXIT_FAILURE when json[0] or json[1] is NUL; re-running
+# both inputs on both binaries produced no AddressSanitizer/UBSan output.
