@@ -70,11 +70,46 @@ static void cjson_utils_functions_shouldnt_crash_with_null_pointers(void)
     cJSON_Delete(item);
 }
 
+static void merge_patch_with_patch_inside_target_should_not_use_freed_memory(void)
+{
+    /* The patch is a subtree of the target: heap use-after-free before the fix. */
+    const char *docs[] = { "[{}]", "{\"a\":{\"a\":5}}", "{\"a\":{\"a\":5,\"b\":6,\"c\":7,\"d\":8}}", "[[1,2],3]" };
+    size_t i;
+    for (i = 0; i < sizeof(docs) / sizeof(docs[0]); i++)
+    {
+        cJSON *target = cJSON_Parse(docs[i]);
+        cJSON *result = NULL;
+        TEST_ASSERT_NOT_NULL(target);
+        result = cJSONUtils_MergePatch(target, target->child);
+        cJSON_Delete(result);
+
+        target = cJSON_Parse(docs[i]);
+        TEST_ASSERT_NOT_NULL(target);
+        result = cJSONUtils_MergePatchCaseSensitive(target, target->child);
+        cJSON_Delete(result);
+    }
+}
+
+static void merge_patch_with_patch_inside_target_should_match_a_separate_patch(void)
+{
+    cJSON *target = cJSON_Parse("{\"a\":{\"a\":5}}");
+    cJSON *separate_target = cJSON_Parse("{\"a\":{\"a\":5}}");
+    cJSON *separate_patch = cJSON_Parse("{\"a\":5}");
+    cJSON *result = cJSONUtils_MergePatch(target, target->child);
+    cJSON *expected = cJSONUtils_MergePatch(separate_target, separate_patch);
+    TEST_ASSERT_TRUE(cJSON_Compare(result, expected, true));
+    cJSON_Delete(result);
+    cJSON_Delete(expected);
+    cJSON_Delete(separate_patch);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
 
     RUN_TEST(cjson_utils_functions_shouldnt_crash_with_null_pointers);
+    RUN_TEST(merge_patch_with_patch_inside_target_should_not_use_freed_memory);
+    RUN_TEST(merge_patch_with_patch_inside_target_should_match_a_separate_patch);
 
     return UNITY_END();
 }

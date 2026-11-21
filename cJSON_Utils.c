@@ -1382,14 +1382,38 @@ static cJSON *merge_patch(cJSON *target, const cJSON * const patch, const cJSON_
     return target;
 }
 
+/* merge_patch() frees nodes of target while it still reads patch. If the caller passes a patch that is part of
+ * target (same allocation tree), those reads hit freed memory (heap use-after-free). Merge from a private copy of
+ * the patch so the two trees never share memory. Cost: one extra O(size of patch) copy. */
+static cJSON *merge_patch_isolated(cJSON *target, const cJSON * const patch, const cJSON_bool case_sensitive)
+{
+    cJSON *patch_copy = NULL;
+    cJSON *result = NULL;
+
+    if (patch == NULL)
+    {
+        return merge_patch(target, patch, case_sensitive);
+    }
+    patch_copy = cJSON_Duplicate(patch, true);
+    if (patch_copy == NULL)
+    {
+        /* out of memory: same outcome as before (target is consumed, NULL returned) */
+        cJSON_Delete(target);
+        return NULL;
+    }
+    result = merge_patch(target, patch_copy, case_sensitive);
+    cJSON_Delete(patch_copy);
+    return result;
+}
+
 CJSON_PUBLIC(cJSON *) cJSONUtils_MergePatch(cJSON *target, const cJSON * const patch)
 {
-    return merge_patch(target, patch, false);
+    return merge_patch_isolated(target, patch, false);
 }
 
 CJSON_PUBLIC(cJSON *) cJSONUtils_MergePatchCaseSensitive(cJSON *target, const cJSON * const patch)
 {
-    return merge_patch(target, patch, true);
+    return merge_patch_isolated(target, patch, true);
 }
 
 static cJSON *generate_merge_patch(cJSON * const from, cJSON * const to, const cJSON_bool case_sensitive)
