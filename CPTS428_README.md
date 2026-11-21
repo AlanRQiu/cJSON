@@ -1,8 +1,11 @@
 # CPTS 428: cJSON Harness
 
-Prerequisites: Ubuntu/Debian Linux (or WSL), Bash, Clang with AddressSanitizer
+## Prerequisites: 
+Ubuntu/Debian Linux (or WSL), Bash, Clang with AddressSanitizer
 and UndefinedBehaviorSanitizer runtimes, Git, and coreutils. No Docker, Make,
 or external C libraries are required.
+
+## How To Set Up Environment
 
 ```bash
 sudo apt-get update
@@ -13,24 +16,30 @@ chmod +x build.sh && ./build.sh
 chmod +x run.sh && ./run.sh
 ```
 
-Expected build output:
+### Expected build output:
 
 ```text
 Build successful: bin/cjson_harness
 ```
 
-Expected default run output (10-byte seed, no trailing newline):
+### Expected default run output (10-byte seed, no trailing newline):
 
 ```text
 Executions: 1, Bytes processed: 10, Parse successes: 1
 ```
 
-Custom file or raw stdin:
+### Custom file or raw stdin:
 
 ```bash
 ./run.sh path/to/input.json
 printf '%s' '{"seed":1}' | ./bin/cjson_harness
 ```
+
+**Important: `./run.sh path/to/input.json` is not the execution of an active fuzzing campaign.
+
+`./run.sh` executes the harness against the specified `path/to/input.json`**
+
+## Current Harness Limitations
 
 The C99 harness calls `cJSON_ParseWithLengthOpts(buffer, length, NULL, 0)`
 without appending a NUL. Buffers grow dynamically up to 16 MiB; empty inputs
@@ -45,3 +54,9 @@ build dependencies. Compiler flags are fixed in the build script; the host
 Clang version is not pinned. Record `clang --version` with experiment results.
 The submission must include these harness files in the remote repository;
 for an immutable reproduction, check out the submitted commit after cloning.
+
+### Fuzzing Campaign Results
+
+No fuzzing campaign has been carried out as of yet. 
+
+However, the absence of any crash reports means that our methodology for fuzzing did not find any vulnerabilities. It ***does not*** mean there aren't any vulnerablilities. 
