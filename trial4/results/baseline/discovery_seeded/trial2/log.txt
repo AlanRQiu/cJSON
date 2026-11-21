@@ -1,0 +1,94 @@
+Dictionary: 37 entries
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 9002
+INFO: Loaded 1 modules   (2000 inline 8-bit counters): 2000 [0xaaaad0cd6360, 0xaaaad0cd6b30), 
+INFO: Loaded 1 PC tables (2000 PCs): 2000 [0xaaaad0cd6b30,0xaaaad0cde830), 
+INFO:        0 files found in /work/trial4/results/baseline/discovery_seeded/trial2/corpus
+INFO:      112 files found in /work/trial4/seeds/utils
+INFO: seed corpus: files: 112 min: 6b max: 532b total: 7073b rss: 40Mb
+=================================================================
+==4591==ERROR: AddressSanitizer: heap-use-after-free on address 0x5060000041d0 at pc 0xaaaad0c7072c bp 0xfffff0e7a000 sp 0xfffff0e79ff8
+READ of size 8 at 0x5060000041d0 thread T0
+    #0 0xaaaad0c70728 in merge_patch /work/cJSON_Utils.c
+    #1 0xaaaad0c591e8 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:68:46
+    #2 0xaaaad0b63d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #3 0xaaaad0b63464 in fuzzer::Fuzzer::RunOne(unsigned char const*, unsigned long, bool, fuzzer::InputInfo*, bool, bool*) (/work/trial4/build/fuzz_utils_alias+0x63464) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #4 0xaaaad0b65198 in fuzzer::Fuzzer::ReadAndExecuteSeedCorpora(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65198) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #5 0xaaaad0b65720 in fuzzer::Fuzzer::Loop(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65720) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaad0b53830 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x53830) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xaaaad0b7c694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #8 0xffff9b9884c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #9 0xffff9b988594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #10 0xaaaad0b49b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+0x5060000041d0 is located 16 bytes inside of 64-byte region [0x5060000041c0,0x506000004200)
+freed by thread T0 here:
+    #0 0xaaaad0c1af38 in free (/work/trial4/build/fuzz_utils_alias+0x11af38) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #1 0xaaaad0c5a1f0 in cJSON_Delete /work/cJSON.c:273:9
+    #2 0xaaaad0c59f58 in cJSON_Delete /work/cJSON.c:261:13
+    #3 0xaaaad0c703b0 in merge_patch /work/cJSON_Utils.c:1338:9
+    #4 0xaaaad0c591e8 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:68:46
+    #5 0xaaaad0b63d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaad0b63464 in fuzzer::Fuzzer::RunOne(unsigned char const*, unsigned long, bool, fuzzer::InputInfo*, bool, bool*) (/work/trial4/build/fuzz_utils_alias+0x63464) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xaaaad0b65198 in fuzzer::Fuzzer::ReadAndExecuteSeedCorpora(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65198) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #8 0xaaaad0b65720 in fuzzer::Fuzzer::Loop(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65720) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #9 0xaaaad0b53830 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x53830) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #10 0xaaaad0b7c694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #11 0xffff9b9884c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #12 0xffff9b988594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #13 0xaaaad0b49b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+previously allocated by thread T0 here:
+    #0 0xaaaad0c1b1d4 in malloc (/work/trial4/build/fuzz_utils_alias+0x11b1d4) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #1 0xaaaad0c675f0 in cJSON_New_Item /work/cJSON.c:243:27
+    #2 0xaaaad0c675f0 in cJSON_Duplicate_rec /work/cJSON.c:2802:15
+    #3 0xaaaad0c679f8 in cJSON_Duplicate_rec /work/cJSON.c:2839:20
+    #4 0xaaaad0c59198 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:65:16
+    #5 0xaaaad0b63d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaad0b63464 in fuzzer::Fuzzer::RunOne(unsigned char const*, unsigned long, bool, fuzzer::InputInfo*, bool, bool*) (/work/trial4/build/fuzz_utils_alias+0x63464) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xaaaad0b65198 in fuzzer::Fuzzer::ReadAndExecuteSeedCorpora(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65198) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #8 0xaaaad0b65720 in fuzzer::Fuzzer::Loop(std::vector<fuzzer::SizedFile, std::allocator<fuzzer::SizedFile>>&) (/work/trial4/build/fuzz_utils_alias+0x65720) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #9 0xaaaad0b53830 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x53830) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #10 0xaaaad0b7c694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #11 0xffff9b9884c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #12 0xffff9b988594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #13 0xaaaad0b49b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /work/cJSON_Utils.c in merge_patch
+Shadow bytes around the buggy address:
+  0x506000003f00: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+  0x506000003f80: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+  0x506000004000: fd fd fd fd fa fa fa fa fd fd fd fd fd fd fd fd
+  0x506000004080: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+  0x506000004100: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+=>0x506000004180: fd fd fd fd fa fa fa fa fd fd[fd]fd fd fd fd fd
+  0x506000004200: fa fa fa fa 00 00 00 00 00 00 00 00 fa fa fa fa
+  0x506000004280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x506000004300: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x506000004380: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x506000004400: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==4591==ABORTING
+MS: 0 ; base unit: 0000000000000000000000000000000000000000
+0x5b,0x7b,0x7d,0x5d,0x0,0x5b,0x5d,0x0,0x2f,0x30,
+[{}]\000[]\000/0
+artifact_prefix='/work/trial4/results/baseline/discovery_seeded/trial2/art/'; Test unit written to /work/trial4/results/baseline/discovery_seeded/trial2/art/crash-343b13efa2bb114d86c3a23d1251be2a3b434e06
+Base64: W3t9XQBbXQAvMA==

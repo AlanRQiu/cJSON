@@ -1,0 +1,9 @@
+{"web-app": {
+  "servlet": [
+    {
+      "servlet-name": "cofaxCDS",
+          "init-param": {
+       "configuseJSP": false,
+        "betaServer": true}}],
+  "appinxEmail": "/coax.tld",
+    "taglib-location": "/WEB-INF/tlds/cofax.tld"}}}

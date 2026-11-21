@@ -1,0 +1,13 @@
+{"web-app": {
+  "servlet": [
+    {
+  "se\t\frvlet-cl": "org.cofax.cds.CDSServlet",
+      "init-param": {
+        "co {
+    :infetaSlat": "Phig.cofax.FilesTemplateLoader",
+        "åèeP": true,        "dareClass": "orgof.cax.SqlDataStore",
+        "redirTeae": true,
+          "betaServer": true}}],
+  "xCDS": "/",
+    "uri": "xtld",
+    "tation": "d"}}}

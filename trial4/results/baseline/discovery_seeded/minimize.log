@@ -1,0 +1,110 @@
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1338710457
+INFO: Loaded 1 modules   (2000 inline 8-bit counters): 2000 [0xaaaab7666360, 0xaaaab7666b30), 
+INFO: Loaded 1 PC tables (2000 PCs): 2000 [0xaaaab7666b30,0xaaaab766e830), 
+CRASH_MIN: minimizing crash input: '/work/trial4/results/baseline/discovery_seeded/first_crash.bin' (10 bytes)
+CRASH_MIN: executing: /work/trial4/build/fuzz_utils_alias -runs=20000 /work/trial4/results/baseline/discovery_seeded/first_crash.bin 2>&1
+CRASH_MIN: '/work/trial4/results/baseline/discovery_seeded/first_crash.bin' (10 bytes) caused a crash. Will try to minimize it further
+CRASH_MIN: executing: /work/trial4/build/fuzz_utils_alias -runs=20000 /work/trial4/results/baseline/discovery_seeded/first_crash.bin -minimize_crash_internal_step=1 -exact_artifact_path=/work/trial4/results/baseline/discovery_seeded/first_crash.min 2>&1
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 1745834131
+INFO: Loaded 1 modules   (2000 inline 8-bit counters): 2000 [0xaaaade036360, 0xaaaade036b30), 
+INFO: Loaded 1 PC tables (2000 PCs): 2000 [0xaaaade036b30,0xaaaade03e830), 
+INFO: Starting MinimizeCrashInputInternalStep: 10
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 10 bytes
+=================================================================
+==4668==ERROR: AddressSanitizer: heap-use-after-free on address 0x50600000f750 at pc 0xaaaaddfd072c bp 0xffffe4278e60 sp 0xffffe4278e58
+READ of size 8 at 0x50600000f750 thread T0
+    #0 0xaaaaddfd0728 in merge_patch /work/cJSON_Utils.c
+    #1 0xaaaaddfb91e8 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:68:46
+    #2 0xaaaaddec3d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #3 0xaaaaddec5ba4 in fuzzer::Fuzzer::MinimizeCrashLoop(std::vector<unsigned char, std::allocator<unsigned char>> const&) (/work/trial4/build/fuzz_utils_alias+0x65ba4) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #4 0xaaaaddeaff90 in fuzzer::MinimizeCrashInputInternalStep(fuzzer::Fuzzer*, fuzzer::InputCorpus*) (/work/trial4/build/fuzz_utils_alias+0x4ff90) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #5 0xaaaaddeb36a8 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x536a8) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaaddedc694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xffff9b9784c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #8 0xffff9b978594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #9 0xaaaaddea9b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+0x50600000f750 is located 16 bytes inside of 64-byte region [0x50600000f740,0x50600000f780)
+freed by thread T0 here:
+    #0 0xaaaaddf7af38 in free (/work/trial4/build/fuzz_utils_alias+0x11af38) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #1 0xaaaaddfba1f0 in cJSON_Delete /work/cJSON.c:273:9
+    #2 0xaaaaddfb9f58 in cJSON_Delete /work/cJSON.c:261:13
+    #3 0xaaaaddfd03b0 in merge_patch /work/cJSON_Utils.c:1338:9
+    #4 0xaaaaddfb91e8 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:68:46
+    #5 0xaaaaddec3d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaaddec5ba4 in fuzzer::Fuzzer::MinimizeCrashLoop(std::vector<unsigned char, std::allocator<unsigned char>> const&) (/work/trial4/build/fuzz_utils_alias+0x65ba4) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xaaaaddeaff90 in fuzzer::MinimizeCrashInputInternalStep(fuzzer::Fuzzer*, fuzzer::InputCorpus*) (/work/trial4/build/fuzz_utils_alias+0x4ff90) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #8 0xaaaaddeb36a8 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x536a8) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #9 0xaaaaddedc694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #10 0xffff9b9784c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #11 0xffff9b978594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #12 0xaaaaddea9b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+previously allocated by thread T0 here:
+    #0 0xaaaaddf7b1d4 in malloc (/work/trial4/build/fuzz_utils_alias+0x11b1d4) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #1 0xaaaaddfc75f0 in cJSON_New_Item /work/cJSON.c:243:27
+    #2 0xaaaaddfc75f0 in cJSON_Duplicate_rec /work/cJSON.c:2802:15
+    #3 0xaaaaddfc79f8 in cJSON_Duplicate_rec /work/cJSON.c:2839:20
+    #4 0xaaaaddfb9198 in LLVMFuzzerTestOneInput /work/trial4/harness/fuzz_utils.c:65:16
+    #5 0xaaaaddec3d0c in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/work/trial4/build/fuzz_utils_alias+0x63d0c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #6 0xaaaaddec5ba4 in fuzzer::Fuzzer::MinimizeCrashLoop(std::vector<unsigned char, std::allocator<unsigned char>> const&) (/work/trial4/build/fuzz_utils_alias+0x65ba4) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #7 0xaaaaddeaff90 in fuzzer::MinimizeCrashInputInternalStep(fuzzer::Fuzzer*, fuzzer::InputCorpus*) (/work/trial4/build/fuzz_utils_alias+0x4ff90) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #8 0xaaaaddeb36a8 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/work/trial4/build/fuzz_utils_alias+0x536a8) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #9 0xaaaaddedc694 in main (/work/trial4/build/fuzz_utils_alias+0x7c694) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+    #10 0xffff9b9784c0  (/lib/aarch64-linux-gnu/libc.so.6+0x284c0) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #11 0xffff9b978594 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x28594) (BuildId: 345abad84f89835d724f49349b1a6b92c6ad4ba3)
+    #12 0xaaaaddea9b6c in _start (/work/trial4/build/fuzz_utils_alias+0x49b6c) (BuildId: 92e214aa8af18b9fbd391929ecdc849ad7a0582c)
+
+SUMMARY: AddressSanitizer: heap-use-after-free /work/cJSON_Utils.c in merge_patch
+Shadow bytes around the buggy address:
+  0x50600000f480: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+  0x50600000f500: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+  0x50600000f580: fd fd fd fd fa fa fa fa fd fd fd fd fd fd fd fd
+  0x50600000f600: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+  0x50600000f680: fd fd fd fd fd fd fd fd fa fa fa fa fd fd fd fd
+=>0x50600000f700: fd fd fd fd fa fa fa fa fd fd[fd]fd fd fd fd fd
+  0x50600000f780: fa fa fa fa 00 00 00 00 00 00 00 00 fa fa fa fa
+  0x50600000f800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50600000f880: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50600000f900: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x50600000f980: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==4668==ABORTING
+MS: 1 EraseBytes-; base unit: 0000000000000000000000000000000000000000
+0x5b,0x7b,0x7d,0x5d,0x0,0x30,
+[{}]\0000
+artifact_prefix='./'; Test unit written to /work/trial4/results/baseline/discovery_seeded/first_crash.min
+Base64: W3t9XQAw
+*********************************
+CRASH_MIN: minimizing crash input: '/work/trial4/results/baseline/discovery_seeded/first_crash.min' (6 bytes)
+CRASH_MIN: executing: /work/trial4/build/fuzz_utils_alias -runs=20000 /work/trial4/results/baseline/discovery_seeded/first_crash.min 2>&1
+CRASH_MIN: '/work/trial4/results/baseline/discovery_seeded/first_crash.min' (6 bytes) caused a crash. Will try to minimize it further
+CRASH_MIN: executing: /work/trial4/build/fuzz_utils_alias -runs=20000 /work/trial4/results/baseline/discovery_seeded/first_crash.min -minimize_crash_internal_step=1 -exact_artifact_path=/work/trial4/results/baseline/discovery_seeded/first_crash.min 2>&1
+INFO: Running with entropic power schedule (0xFF, 100).
+INFO: Seed: 2304818723
+INFO: Loaded 1 modules   (2000 inline 8-bit counters): 2000 [0xaaaadca06360, 0xaaaadca06b30), 
+INFO: Loaded 1 PC tables (2000 PCs): 2000 [0xaaaadca06b30,0xaaaadca0e830), 
+INFO: Starting MinimizeCrashInputInternalStep: 6
+INFO: -max_len is not provided; libFuzzer will not generate inputs larger than 6 bytes
+INFO: Done MinimizeCrashInputInternalStep, no crashes found
+CRASH_MIN: failed to minimize beyond /work/trial4/results/baseline/discovery_seeded/first_crash.min (6 bytes), exiting

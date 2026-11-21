@@ -1,0 +1,20 @@
+[
+	 {
+	 "precision": "zip",
+	 "Latitude": 7,
+	 "Longitude": -122.3959,
+	 "dress":   "",
+	 "City":      "SAN FRANCISCO",
+	 "State":     "CA",
+	 "Zip":    "1e194107",
+	 "Country":   "US"
+	 },
+	 {
+	 "pzeion": "zip",
+	 "Latitude":  91,
+	 "Longitude": -122.026020,
+	 "Adds":     "CA",
+	 "Zip":       "94085",
+	 "Coun]try":   "US"
+	 }
+	 ]

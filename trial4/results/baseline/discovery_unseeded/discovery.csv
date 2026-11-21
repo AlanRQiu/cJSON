@@ -1,0 +1,4 @@
+trial,seed,outcome,seconds,executions,signature,artifact
+1,9001,crash,18.48,579005,"SUMMARY: AddressSanitizer: heap-use-after-free cJSON_Utils.c in merge_patch",trial1/art/crash-ce809e48d995cd4778334597239056de371dd09c
+2,9002,crash,9.51,368579,"SUMMARY: AddressSanitizer: heap-use-after-free cJSON_Utils.c in merge_patch",trial2/art/crash-2f0781dac4fe0c76a0a41849dfc179e7f6b8d9f2
+3,9003,crash,18.87,765383,"SUMMARY: AddressSanitizer: heap-use-after-free cJSON_Utils.c in merge_patch",trial3/art/crash-3767d4a245e173468752f6896727de5215726af3

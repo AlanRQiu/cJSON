@@ -1,0 +1,3 @@
+target,wall_seconds,cpu_seconds,cpu_hours,executions,final_cov_edges,final_features,corpus_work_units,corpus_min_units,crash_artifacts
+fuzz_parse,1801.7,1737.1,0.483,6277783,426,2243,1902,614,2
+fuzz_utils,1801.9,1734.7,0.482,12312723,673,3573,1089,816,1

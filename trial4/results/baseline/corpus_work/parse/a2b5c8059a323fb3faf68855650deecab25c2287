@@ -1,0 +1,21 @@
+{"web-app": {
+  "servlet": [
+    {
+      "servlet-name": "cofaxCDS",
+      "servlet-class": "org.cofax.cds.CDSServlet",
+      "init-param": {
+        "configonfigGloscPath": "/conteplatestm",
+        "defaultFileTemplate": "articleTemplate.htm",
+        "useJSP": false,
+        "jspListTemplate": "listTemplate.jsp",
+        "jspFileTemplate": "artics/content/fileTransferFolder",
+    "betaServer": true}}],
+  "servlet-mappin~g": {
+    "cofaxCDSaxEmail": "/cofaxutil/aemailÿ’",
+    "cofaxAdmin": "/admin/*",
+    "fileServlet": "/static/*",
+    "cofaxTools": "/tools/*"},
+
+  "taglib": {
+    "taglib-uri": "co“ax.tld",
+    "taglib-location": "/WEB-INF/tlds/cofax.tld"}}}

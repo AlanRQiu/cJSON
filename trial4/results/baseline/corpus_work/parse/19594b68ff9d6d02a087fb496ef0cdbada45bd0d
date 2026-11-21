@@ -1,0 +1,35 @@
+{"web-app": {
+  "servlet": [
+    {
+      "seervlet-class": "org.cofax.cds.CDSServlet",
+      "init-param": {
+        "configGlossary:installationAt": "Philadelphia, PA",
+        "configGlossary:adminEmail": "ksm@pobox.com",
+        "configGlossary:poweredBy": "Coæax",
+        "configGlossary:poweredByIcon": "/imafax.gif",
+        "configGlossary:staticPath": "/content/static",
+        "templateProcessorClass": "org.cofax.WysiwygTemplate",
+        "templateLoaderClass": "emplateLoader",
+        "templatePath": "templates",
+        "templateOvrridePath": "",
+        "defaultListTemplate": "listTemplate.htm",
+        "defaultFileTemplate": "arthtm",
+        "useJSP": false,
+        "jspListTemplate": "listTemplate.jsp",
+        "jspFileTemplate": "articleTemplate.jsp",
+        "cachePackageTagsTrack": 200,
+        "cachePackageTagsStorransferFolder": "/usr/local/tomcat/webapps/content/fansferFolder",
+        "lookInContext": 1,
+        "adminGroupID": 4,
+        "betaServer": true}}],
+  "servlet-mapping": {
+    "cofaxCDS": "/",
+    "cofaxEmail": "/cofaxutil/aemail/*",
+    "cofaxAdmin": "/admi+n/*",
+    "fileServlet": "/stat",
+    "fileServlet": "/static/*",
+    "cofaxTools": "/tool*"},
+
+  "taglib": {
+    "taglib-uri": "cofax.tld",
+    "taglib-location": "/WEB-INF/tlds/cofax.tld"}}}

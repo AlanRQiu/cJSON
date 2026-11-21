@@ -18,3 +18,5 @@ libcjson_utils.so.*
 cmake-build-debug
 *.lst
 *.lss
+trial4/build/
+trial4/build_before/

@@ -1,0 +1,4 @@
+file,lines_total,lines_covered,lines_percent,functions_total,functions_covered,functions_percent
+cJSON.c,2291,1395,60.89,113,62,54.87
+cJSON_Utils.c,1096,1010,92.15,38,38,100.00
+TOTAL,3387,2405,71.01,151,100,66.23

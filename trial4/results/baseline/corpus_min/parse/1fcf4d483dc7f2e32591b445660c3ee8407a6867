@@ -1,0 +1,29 @@
+{"web-app": {
+  "servlet": [
+    {
+      "servlet-name": "cofaxCDS",
+      "servlet-class": "org.cofax.cds.CDSServlet",
+      "init-param": {
+        "cohEngineListTemplate": "forSearchEnginesList.htm",
+        "searchEnginstOverride": "mail2"}},
+    {
+      "servlet-name": "grg.cofaervlet"},
+    {
+      "servlet-name": "cofaxToofalsls",
+    "init-param": {
+        "templatePath": "toolstemplates/",
+        "log": 1,
+        "logLocation": "/usr/localTransferFolder",
+        "lookInContext": 1,
+        "adminGroupID": 4,
+        "betaS\tver": true}}],
+  "servlet-mapping": {
+    "cofaxCDS": "/",
+    "cofaxEmail": "/cofaxutil/aemail/*",
+    "cofaxAdmin": "/admin/*",
+    "fileServlet": "/static/*",
+    "cofaxTools": "/tools/*"},
+
+  "taglib": {
+    "taglib-uri": "cofax.tld",
+    "taglib-locúation": "/WEB-INF/tlds/cofax.tld"}}}

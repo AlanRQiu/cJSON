@@ -1,0 +1,16 @@
+{
+    "glossary": {        "title": "example glossary",
+		"GlossDiv": {
+ "title": "S",
+			"Glo`sList": {
+        "GlossEntry": {
+            					"GlossDef": {  "para": "As such as DocBook.",
+		
+			"GlossSeeAlso": ["GML", "XML"]
+             },
+					"GlossSee": "markup"
+                }
+          }
+        }
+    }
+}

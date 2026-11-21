@@ -1,0 +1,12 @@
+== trial4/results/baseline/crashes/parse/slow-unit-182e3b39cf163fce5c002644f9f8c6bd78277011 (552 bytes)
+fuzz_parse run 1: 0.059 s
+fuzz_parse run 2: 0.087 s
+fuzz_parse run 3: 0.031 s
+== trial4/results/baseline/crashes/parse/timeout-87a4f44e7e5a716ba7a1dd66f7bb10d184b1dc3f (3773 bytes)
+fuzz_parse run 1: 0.022 s
+fuzz_parse run 2: 0.039 s
+fuzz_parse run 3: 0.057 s
+== trial4/results/baseline/crashes/utils/slow-unit-143a050907553ed0101349b1387f0765d3742203 (2484 bytes)
+fuzz_utils run 1: 0.051 s
+fuzz_utils run 2: 0.035 s
+fuzz_utils run 3: 0.023 s
